@@ -1,0 +1,15 @@
+$iconsSize: 18, 24, 36, 48;
+$zIndex: 1, 2, 3, 5, 5;
+
+@each $size in $iconsSize {
+    .material-icons{
+        &.md-#{$size}{
+            font-size: $size + px;
+        }
+    }
+}
+@each $i in $zIndex {
+    .z-#{$i}{
+        z-index: $i;
+    }
+}
