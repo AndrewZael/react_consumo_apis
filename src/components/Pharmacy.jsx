@@ -1,4 +1,6 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 function Pharmacy(props) {
 
@@ -6,66 +8,76 @@ function Pharmacy(props) {
     props.setCenterMap({ lat: parseFloat(lat), lng: parseFloat(lng) });
   }
 
+  const inputChecked = (element) => {
+    element.checked = true;
+  }
+
   const validatePhone = (number) => {
-      return /^\+([0-9])*$/.test(number);
+    return /^\+([0-9])*$/.test(number);
   }
 
   return (
-    <article title={ props.local_nombre } className="px-3 py-3 rounded bg-white border shadow-sm mb-2">
-      <div className="row">
-        <div className="col-9 pb-3">
-          <h2 className="h5">{ props.local_nombre }</h2>
-          <ul className="list-unstyled mt-3 mb-0 small">
-            <li className="mb-2">
-              <ul className="d-flex list-unstyled">
-                <span className="material-icons me-2">place</span>
-                <li className="lh-sm">
-                  Dirección <br/>
-                  <strong>{ props.local_direccion }, { props.comuna_nombre }</strong>
-                </li>
-              </ul>
-            </li>
-
-            <li className="d-flex mb-2">
-              <span className="material-icons me-2">
-                schedule
-                </span> 
+    <>
+      <input type="radio" id={`radio-${props.local_id}`} name="place" className="d-none" />
+      <label htmlFor={`radio-${props.local_id}`} title={props.local_nombre} className="px-3 py-3 rounded bg-white border shadow-sm mb-2">
+        <div className="row">
+          <div className="col-9 pb-3">
+            <h2 className="h5">{props.local_nombre}</h2>
+            <ul className="list-unstyled mt-3 mb-0 small">
+              <li className="mb-2">
                 <ul className="d-flex list-unstyled">
-                    <li className="me-3 lh-sm">Apertura <br/>
-                      <strong>{ props.funcionamiento_hora_apertura } hrs.</strong>
-                    </li>
-                    <li className="lh-sm">Cierre <br/>
-                      <strong>{ props.funcionamiento_hora_cierre } hrs.</strong>
-                    </li>
+                  <span className="material-icons me-2">place</span>
+                  <li className="lh-sm">
+                    Dirección <br />
+                    <strong>{props.local_direccion}, {props.comuna_nombre}</strong>
+                  </li>
                 </ul>
-            </li>
+              </li>
 
-            <li className="d-flex">
-              <span className="material-icons me-2">event</span>
-              <ul className="d-flex list-unstyled">
-                <li className="lh-sm">Día de funcionamiento<br/> <strong>{ props.funcionamiento_dia }</strong></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div className="col-3 d-flex align-items-center justify-content-center">
+              <li className="d-flex mb-2">
+                <span className="material-icons me-2">
+                  schedule
+                </span>
+                <ul className="d-flex list-unstyled">
+                  <li className="me-3 lh-sm">Apertura <br />
+                    <strong>{props.funcionamiento_hora_apertura} hrs.</strong>
+                  </li>
+                  <li className="lh-sm">Cierre <br />
+                    <strong>{props.funcionamiento_hora_cierre} hrs.</strong>
+                  </li>
+                </ul>
+              </li>
 
-          {validatePhone(props.local_telefono) ?
-            <a href={`tel:${props.local_telefono}`} title="Llamar" className="btn">
-              <span className="material-icons md-36">call</span>
-            </a> :
-            null
+              <li className="d-flex">
+                <span className="material-icons me-2">event</span>
+                <ul className="d-flex list-unstyled">
+                  <li className="lh-sm">Día de funcionamiento<br /> <strong>{props.funcionamiento_dia}</strong></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div className="col-3 d-flex align-items-center justify-content-center">
+
+            {validatePhone(props.local_telefono) ?
+              <a href={`tel:${props.local_telefono}`} title="Llamar" className="btn">
+                <span className="material-icons md-36">call</span>
+              </a> :
+              null
+            }
+
+          </div>
+          {props.local_lat !== "" || props.local_lng !== "" ?
+            <div className="col-12 text-end border-top pt-3">
+              <button htmlFor={`radio-${props.local_id}`} onClick={() => {
+                inputChecked(document.getElementById(`radio-${props.local_id}`));
+                setCenter(props.local_lat, props.local_lng);
+              }}
+                className="btn btn-primary" title="Ver ubicación">Ver en el mapa &raquo;</button>
+            </div> : null
           }
-
         </div>
-        {props.local_lat !== "" || props.local_lng !== "" ?
-        <div className="col-12 text-end border-top pt-3">
-          <button onClick={() => setCenter(props.local_lat, props.local_lng)}
-          className="btn btn-primary" title="Ver ubicación">Ver en el mapa &raquo;</button>
-        </div> : null
-        }
-      </div>
-    </article>
+      </label>
+    </>
   )
 }
 

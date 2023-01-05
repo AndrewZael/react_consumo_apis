@@ -16,14 +16,14 @@ function App() {
       <GetLocation setUserLocation={setUserLocation} />
 
       <main className="row mx-0 min-vh-100">
-        <section className="col-3 pb-2 px-0 overflow-auto vh-100" title="Lista de farmacias">
+        <section className="col-3 pb-2 px-0 overflow-auto vh-100 border-end" title="Lista de farmacias">
           <ListPharmacy setMarkets={setMarkets} setCenterMap={setCenterMap} />
         </section>
         <section className="col-9" title="Mapa con ubicaciones de farmacias">
-            <Map 
+            {/* <Map 
               userLocation={userLocation} 
               markets={markets} 
-              centerMap={centerMap} />
+              centerMap={centerMap} /> */}
         </section>
       </main>
 

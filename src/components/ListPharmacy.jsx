@@ -32,12 +32,15 @@ const ListPharmacy = ({ setMarkets, setCenterMap }) => {
     <>
       <Filter 
         listPharmacy={listPharmacy}
+        listPharmacyFiltered={listPharmacyFiltered}
         setListPharmacyFiltered={setListPharmacyFiltered} />
       <nav className="px-3">
       {
         listPharmacyFiltered?.map(item => 
-          <Pharmacy setCenterMap={setCenterMap}
-            key={item.local_id} 
+          <Pharmacy
+            setCenterMap={setCenterMap}
+            key={item.local_id}
+            local_id={item.local_id} 
             local_nombre={item.local_nombre}
             local_direccion={item.local_direccion}
             comuna_nombre={item.comuna_nombre}
