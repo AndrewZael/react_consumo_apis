@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import {
+  useState
+} from "react";
 import GetLocation from "./components/GetLocation";
 import Map from "./components/Map";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,10 +22,13 @@ function App() {
           <ListPharmacy setMarkets={setMarkets} setCenterMap={setCenterMap} />
         </section>
         <section className="col-9" title="Mapa con ubicaciones de farmacias">
-            {/* <Map 
+            < Map
               userLocation={userLocation} 
               markets={markets} 
-              centerMap={centerMap} /> */}
+              centerMap = {
+                centerMap
+              }
+              />
         </section>
       </main>
 

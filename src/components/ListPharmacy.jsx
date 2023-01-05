@@ -10,17 +10,22 @@ const ListPharmacy = ({ setMarkets, setCenterMap }) => {
   const [listPharmacyFiltered, setListPharmacyFiltered] = useState(listPharmacy);
 
   useEffect(() => {
-    getPharmacy().then(res => {
-       setLisPharmacy(res);
-       setListPharmacyFiltered(res);
-       const locations = [];
-       res?.map(item => {
-          locations.push({ lat: item.local_lat, lng: item.local_lng, name: item.local_nombre });
-       });
-       setMarkets(locations);
-
-    }).catch(err => console.log(err))
-  },[]);
+    getPharmacy()
+      .then((res) => {
+        setLisPharmacy(res);
+        setListPharmacyFiltered(res);
+        const locations = [];
+        res.map((item) =>
+          locations.push({
+            lat: item.local_lat,
+            lng: item.local_lng,
+            name: item.local_nombre,
+          })
+        );
+        setMarkets(locations);
+      })
+      .catch((err) => console.log(err));
+  }, [setMarkets]);
 
   const getPharmacy = async () => {
     const url = 'https://farmanet.minsal.cl/index.php/ws/getLocalesTurnos';
