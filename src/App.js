@@ -21,7 +21,8 @@ function App() {
         <section className="col-3 pb-2 px-0 overflow-auto vh-100 border-end" title="Lista de farmacias">
           <ListPharmacy setMarkets={setMarkets} setCenterMap={setCenterMap} />
         </section>
-        <section className="col-9" title="Mapa con ubicaciones de farmacias">
+        < section className = "col-9 position-relative"
+        title = "Mapa con ubicaciones de farmacias" >
             < Map
               userLocation={userLocation} 
               markets={markets} 

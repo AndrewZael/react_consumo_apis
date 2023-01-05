@@ -3,6 +3,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 import iconPharmacy from "../assets/img/pharmacy.png";
 import { useEffect } from "react";
 import InfoRoute from "./InfoRoute";
+import AlertToast from "./AlertToast";
 
 let MAP = null;
 const COLOR = "red";
@@ -10,6 +11,7 @@ let directionRender = null;
 
 const Map = ({ userLocation, markets, centerMap }) => {
   const [infoRoute, setInfoRoute] = useState({});
+  const [toastShow, setToastShow] = useState(false);
   useEffect(() => {
     inMap();
   }, [centerMap]);
@@ -97,9 +99,15 @@ const Map = ({ userLocation, markets, centerMap }) => {
                 end_address: baseRoute.end_address,
               };
               setInfoRoute(route);
+              setToastShow(false);
               directionRender.setDirections(response);
               directionRender.setMap(MAP);
               MAP.setZoom(10);
+              break;
+            case "ZERO_RESULTS":
+              setInfoRoute({});
+              setToastShow(true);
+              MAP.setCenter(new window.google.maps.LatLng(centerMap));
               break;
             default:
               break;
@@ -113,17 +121,24 @@ const Map = ({ userLocation, markets, centerMap }) => {
   };
 
   return (
-    <article className="min-vh-100 position-relative">
-      {JSON.stringify(infoRoute) !== "{}" ? (
-        <InfoRoute
-          distance={infoRoute.distance}
-          duration={infoRoute.duration}
-          start_address={infoRoute.start_address}
-          end_address={infoRoute.end_address}
-        />
-      ) : null}
-      <div id="map" className="min-vh-100"></div>
-    </article>
+    <>
+      <AlertToast
+        title="¡Ups! 😥"
+        message="No se encontró una ruta para llegar a esta ubicación."
+        toastShow={toastShow}
+      />
+      <article className="min-vh-100 position-relative">
+        {JSON.stringify(infoRoute) !== "{}" ? (
+          <InfoRoute
+            distance={infoRoute.distance}
+            duration={infoRoute.duration}
+            start_address={infoRoute.start_address}
+            end_address={infoRoute.end_address}
+          />
+        ) : null}
+        <div id="map" className="min-vh-100"></div>
+      </article>
+    </>
   );
 };
 
