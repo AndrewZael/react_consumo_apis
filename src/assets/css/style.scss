@@ -24,6 +24,16 @@ nav {
     }
 }
 
+#info-route {
+    height: 220px;
+    bottom: -220px;
+    transition: bottom 350ms ease-in 200ms;
+
+    &.open {
+        bottom: 0;
+    }
+}
+
 .no-caret{
     &::after{
         display: none;
