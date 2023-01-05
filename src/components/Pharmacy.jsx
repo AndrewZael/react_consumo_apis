@@ -22,6 +22,7 @@ function Pharmacy(props) {
         className="d-none"
       />
       <label
+        onClick={() => setCenter(props.local_lat, props.local_lng)}
         htmlFor={`radio-${props.local_id}`}
         title={props.local_nombre}
         className="px-3 py-3 rounded bg-white border shadow-sm mb-2"

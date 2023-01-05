@@ -1,3 +1,5 @@
+
+
 $iconsSize: 18, 24, 36, 48;
 $zIndex: 1, 2, 3, 5, 5;
 
@@ -11,6 +13,14 @@ $zIndex: 1, 2, 3, 5, 5;
 @each $i in $zIndex {
     .z-#{$i}{
         z-index: $i;
+    }
+}
+
+nav {
+    input:checked {
+        &+label {
+            border: 1px solid var(--bs-primary) !important;
+        }
     }
 }
 
