@@ -26,7 +26,7 @@ const Filter = ({
 
   return (
     <>
-      <header className="mb-3 p-3 border-bottom bg-light position-sticky top-0 z-1 d-flex">
+      <header className="mb-3 p-3 border-bottom bg-light position-sticky top-0 z-2 d-flex">
         <label className="input-group">
           <input
             type="search"

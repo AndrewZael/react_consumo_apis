@@ -1,13 +1,15 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import Filter from './Filter';
-import Pharmacy from './Pharmacy';
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import Filter from "./Filter";
+import Pharmacy from "./Pharmacy";
+import PharmacySkeleton from "./PharmacySkeleton";
 
 const ListPharmacy = ({ setMarkets, setCenterMap }) => {
-
   const [listPharmacy, setLisPharmacy] = useState([]);
-  const [listPharmacyFiltered, setListPharmacyFiltered] = useState(listPharmacy);
+  const [listPharmacyFiltered, setListPharmacyFiltered] =
+    useState(listPharmacy);
+  const [preload, setPreload] = useState(true);
 
   useEffect(() => {
     getPharmacy()
@@ -23,43 +25,50 @@ const ListPharmacy = ({ setMarkets, setCenterMap }) => {
           })
         );
         setMarkets(locations);
+        setPreload(false);
       })
       .catch((err) => console.log(err));
   }, [setMarkets]);
 
   const getPharmacy = async () => {
-    const url = 'https://farmanet.minsal.cl/index.php/ws/getLocalesTurnos';
+    const url = "https://farmanet.minsal.cl/index.php/ws/getLocalesTurnos";
     const response = await fetch(url);
     return await response.json();
-  }
+  };
 
   return (
     <>
-      <Filter 
+      <Filter
         listPharmacy={listPharmacy}
         listPharmacyFiltered={listPharmacyFiltered}
-        setListPharmacyFiltered={setListPharmacyFiltered} />
+        setListPharmacyFiltered={setListPharmacyFiltered}
+      />
       <nav className="px-3">
-      {
-        listPharmacyFiltered?.map(item => 
-          <Pharmacy
-            setCenterMap={setCenterMap}
-            key={item.local_id}
-            local_id={item.local_id} 
-            local_nombre={item.local_nombre}
-            local_direccion={item.local_direccion}
-            comuna_nombre={item.comuna_nombre}
-            local_telefono={item.local_telefono}
-            funcionamiento_hora_apertura={item.funcionamiento_hora_apertura}
-            funcionamiento_hora_cierre={item.funcionamiento_hora_cierre}
-            funcionamiento_dia={item.funcionamiento_dia}
-            local_lat={item.local_lat}
-            local_lng={item.local_lng}
-          />)
-      }
+        {preload &&
+          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+            <PharmacySkeleton />
+          ))}
+
+        {!preload &&
+          listPharmacyFiltered?.map((item) => (
+            <Pharmacy
+              setCenterMap={setCenterMap}
+              key={item.local_id}
+              local_id={item.local_id}
+              local_nombre={item.local_nombre}
+              local_direccion={item.local_direccion}
+              comuna_nombre={item.comuna_nombre}
+              local_telefono={item.local_telefono}
+              funcionamiento_hora_apertura={item.funcionamiento_hora_apertura}
+              funcionamiento_hora_cierre={item.funcionamiento_hora_cierre}
+              funcionamiento_dia={item.funcionamiento_dia}
+              local_lat={item.local_lat}
+              local_lng={item.local_lng}
+            />
+          ))}
       </nav>
     </>
-  )
-}
+  );
+};
 
 export default ListPharmacy;
