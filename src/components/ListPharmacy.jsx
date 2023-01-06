@@ -4,12 +4,15 @@ import { useState } from "react";
 import Filter from "./Filter";
 import Pharmacy from "./Pharmacy";
 import PharmacySkeleton from "./PharmacySkeleton";
+import empty from "../assets/img/empty.png";
+import Notice from "./Notice";
 
 const ListPharmacy = ({ setMarkets, setCenterMap }) => {
   const [listPharmacy, setLisPharmacy] = useState([]);
   const [listPharmacyFiltered, setListPharmacyFiltered] =
     useState(listPharmacy);
   const [preload, setPreload] = useState(true);
+  const [noticeInfo, setNoticeInfo] = useState({});
 
   useEffect(() => {
     getPharmacy()
@@ -27,7 +30,16 @@ const ListPharmacy = ({ setMarkets, setCenterMap }) => {
         setMarkets(locations);
         setPreload(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        const noticeErrorApi = {
+          img: empty,
+          title: "Lo sentimos",
+          message:
+            "Un error ha ocurrido al traer la información, por favor inténtetelo nuevamente.",
+        };
+        setNoticeInfo(noticeErrorApi);
+        setPreload(false);
+      });
   }, [setMarkets]);
 
   const getPharmacy = async () => {
@@ -42,15 +54,21 @@ const ListPharmacy = ({ setMarkets, setCenterMap }) => {
         listPharmacy={listPharmacy}
         listPharmacyFiltered={listPharmacyFiltered}
         setListPharmacyFiltered={setListPharmacyFiltered}
+        setNoticeInfo={setNoticeInfo}
       />
-      <nav className="px-3">
-        {preload &&
-          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-            <PharmacySkeleton />
-          ))}
 
-        {!preload &&
-          listPharmacyFiltered?.map((item) => (
+      {JSON.stringify(noticeInfo) !== "{}" ? (
+        <Notice data={noticeInfo} />
+      ) : null}
+
+      {preload &&
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+          <PharmacySkeleton key={`preload-${item}`} />
+        ))}
+
+      {listPharmacyFiltered.length > 0 ? (
+        <nav className="px-3">
+          {listPharmacyFiltered.map((item) => (
             <Pharmacy
               setCenterMap={setCenterMap}
               key={item.local_id}
@@ -66,7 +84,8 @@ const ListPharmacy = ({ setMarkets, setCenterMap }) => {
               local_lng={item.local_lng}
             />
           ))}
-      </nav>
+        </nav>
+      ) : null}
     </>
   );
 };

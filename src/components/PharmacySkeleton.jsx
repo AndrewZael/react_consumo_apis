@@ -8,7 +8,7 @@ const PharmacySkeleton = () => {
       <Skeleton width={"50%"} height={24} />
       <ul className="mt-3 list-unstyled">
         {[0, 1, 2].map((item) => (
-          <li className="mb-1">
+          <li className="mb-1" key={item}>
             <Skeleton />
           </li>
         ))}

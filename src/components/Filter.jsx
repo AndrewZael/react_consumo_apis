@@ -1,28 +1,36 @@
 import React from "react";
 import Sort from "./Sort";
+import noResult from "../assets/img/no-result.png";
 
 const Filter = ({
   listPharmacy,
   listPharmacyFiltered,
   setListPharmacyFiltered,
+  setNoticeInfo,
 }) => {
   const filter = (e) => {
+    const val = e.target.value;
     const newList = listPharmacy.filter((item) => {
       return item
-        ? item.comuna_nombre
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toLowerCase()
-            .includes(e.target.value) ||
-            item.local_nombre
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .toLowerCase()
-              .includes(e.target.value)
+        ? search(item.comuna_nombre, val) || search(item.local_nombre, val)
         : listPharmacy;
     });
     setListPharmacyFiltered(newList);
+    newList.length === 0
+      ? setNoticeInfo({
+          img: noResult,
+          title: "No existen resultados",
+          message: `Lo sentimos, no se encontraron resultados para <strong>${val}</strong>`,
+        })
+      : setNoticeInfo({});
   };
+
+  const search = (item, value) =>
+    item
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .includes(value);
 
   return (
     <>
