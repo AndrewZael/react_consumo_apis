@@ -9,20 +9,22 @@ const Filter = ({
   setNoticeInfo,
 }) => {
   const filter = (e) => {
-    const val = e.target.value;
-    const newList = listPharmacy.filter((item) => {
-      return item
-        ? search(item.comuna_nombre, val) || search(item.local_nombre, val)
-        : listPharmacy;
-    });
-    setListPharmacyFiltered(newList);
-    newList.length === 0
-      ? setNoticeInfo({
-          img: noResult,
-          title: "No existen resultados",
-          message: `Lo sentimos, no se encontraron resultados para <strong>${val}</strong>`,
-        })
-      : setNoticeInfo({});
+    if (listPharmacyFiltered.length > 0) {
+      const val = e.target.value;
+      const newList = listPharmacy.filter((item) => {
+        return item
+          ? search(item.comuna_nombre, val) || search(item.local_nombre, val)
+          : listPharmacy;
+      });
+      setListPharmacyFiltered(newList);
+      newList.length === 0
+        ? setNoticeInfo({
+            img: noResult,
+            title: "No existen resultados",
+            message: `Lo sentimos, no se encontraron resultados para <strong>${val}</strong>`,
+          })
+        : setNoticeInfo({});
+    }
   };
 
   const search = (item, value) =>
