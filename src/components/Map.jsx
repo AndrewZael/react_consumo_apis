@@ -112,9 +112,11 @@ const Map = ({ userLocation, markets, centerMap }) => {
               MAP.setZoom(10);
               break;
             case "ZERO_RESULTS":
+              directionRender.setMap(null);
               setInfoRoute({});
               setToastShow(true);
               MAP.setCenter(new window.google.maps.LatLng(centerMap));
+              MAP.setZoom(14);
               break;
             default:
               break;
