@@ -4,8 +4,10 @@ import iconPharmacy from "../assets/img/pharmacy.png";
 import { useEffect } from "react";
 import InfoRoute from "./InfoRoute";
 import AlertToast from "./AlertToast";
+import addCurrentLocation from "google-maps-current-location";
 
 let MAP = null;
+let currentLocation = null;
 const COLOR = "red";
 let directionRender = null;
 
@@ -47,17 +49,22 @@ const Map = ({ userLocation, markets, centerMap }) => {
     };
 
     // Mapa
-    if (MAP === null && userLocation !== undefined) {
+    if (MAP === null) {
       MAP = new window.google.maps.Map(document.getElementById("map"));
       directionRender = new window.google.maps.DirectionsRenderer({
         polylineOptions: { strokeColor: COLOR },
       });
-      MAP.setCenter(
-        userLocation !== undefined ? options.center : optionsDefault.center
-      );
-      MAP.setZoom(
-        userLocation !== undefined ? options.zoom : optionsDefault.zoom
-      );
+    } else if (userLocation !== undefined) {
+      if (JSON.stringify(centerMap) === "{}") {
+        currentLocation === null && (currentLocation = addCurrentLocation(MAP));
+        MAP.setCenter(options.center);
+        MAP.setZoom(options.zoom);
+      }
+    } else {
+      if (JSON.stringify(centerMap) === "{}") {
+        MAP.setCenter(optionsDefault.center);
+        MAP.setZoom(optionsDefault.zoom);
+      }
     }
 
     // Market usuario
@@ -81,7 +88,7 @@ const Map = ({ userLocation, markets, centerMap }) => {
 
   const inMap = () => {
     if (window.google !== undefined) {
-      if (JSON.stringify(userLocation) !== "{}") {
+      if (userLocation !== undefined) {
         const directionService = new window.google.maps.DirectionsService();
         let route = {
           origin: new window.google.maps.LatLng(userLocation),
@@ -113,7 +120,7 @@ const Map = ({ userLocation, markets, centerMap }) => {
               break;
           }
         });
-      } else if (JSON.stringify(centerMap) !== "{}") {
+      } else {
         MAP.setCenter(new window.google.maps.LatLng(centerMap));
         MAP.setZoom(14);
       }

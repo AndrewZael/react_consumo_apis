@@ -25,7 +25,7 @@ function Pharmacy(props) {
         onClick={() => setCenter(props.local_lat, props.local_lng)}
         htmlFor={`radio-${props.local_id}`}
         title={props.local_nombre}
-        className="px-3 py-3 rounded bg-white border shadow-sm mb-2 w-100"
+        className="wrap-pharmacy px-3 py-3 rounded bg-white border shadow-sm mb-2 w-100"
       >
         <div className="row">
           <div className="col-9 pb-3">
@@ -71,6 +71,7 @@ function Pharmacy(props) {
           {validatePhone(props.local_telefono) ? (
             <div className="col-3 d-flex align-items-center justify-content-center">
               <a
+                onClick={(e) => e.stopPropagation()}
                 href={`tel:${props.local_telefono}`}
                 title="Llamar"
                 className="btn"

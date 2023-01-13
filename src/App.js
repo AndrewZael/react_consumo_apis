@@ -23,15 +23,13 @@ function App() {
         </section>
         < section className = "col-9 position-relative"
         title = "Mapa con ubicaciones de farmacias" >
-            {
-              /* <Map
+            < Map
               userLocation={userLocation} 
               markets={markets} 
               centerMap = {
                 centerMap
               }
-              /> */
-              }
+              />
         </section>
       </main>
 
