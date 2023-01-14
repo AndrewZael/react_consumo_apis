@@ -8,7 +8,7 @@ import ListPharmacy from "./components/ListPharmacy";
 function App() {
 
   const [userLocation, setUserLocation] = useState();
-  const [markers, setMarkers] = useState([]);
+  const [list, setList] = useState([]);
   const [centerMap, setCenterMap] = useState({});
 
   return (
@@ -17,17 +17,17 @@ function App() {
 
       <main className="row mx-0 min-vh-100">
         <section className="col-3 pb-2 px-0 overflow-auto vh-100 border-end" title="Lista de farmacias">
-          <ListPharmacy setMarkers={setMarkers}
+          <ListPharmacy setList={setList}
           setCenterMap={setCenterMap}
           />
         </section>
         
         <section className="col-9 position-relative"
         title="Mapa con ubicaciones de farmacias">
-            {markers.length > 0 ?
+            {list.length > 0 ?
             <Map
               userLocation={userLocation} 
-              markers={markers}
+              list={list}
               centerMap={centerMap}
               /> : null
             }

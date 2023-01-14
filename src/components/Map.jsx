@@ -3,6 +3,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 import { useEffect } from "react";
 import InfoRoute from "./InfoRoute";
 import AlertToast from "./AlertToast";
+import Pharmacy from "./Pharmacy";
 import addCurrentLocation from "google-maps-current-location";
 
 // Iconos
@@ -10,17 +11,16 @@ import iconPharmacy from "../assets/img/pharmacy.png";
 import iconPerson from "../assets/img/user_location.png";
 
 const COLOR = "red";
-let markersMap = [];
 let MAP = null;
 let currentLocation = null;
 let directionRender = null;
 
-const Map = ({ userLocation, markers, centerMap }) => {
+const Map = ({ userLocation, list, centerMap }) => {
   const [infoRoute, setInfoRoute] = useState({});
   const [toastShow, setToastShow] = useState(false);
-  const [viewMarker, setViewMarker] = useState(null);
   useEffect(() => {
     inMap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [centerMap]);
 
   // Se inicializa google maps API
@@ -52,14 +52,19 @@ const Map = ({ userLocation, markers, centerMap }) => {
 
 
       // Markest Lista de farmacias
-      for (const marker of markers) {
-        if (marker.lat !== "" && marker.lng !== "") {
+      for (const marker of list) {
+        if (marker.local_lat !== "" && marker.local_lng !== "") {
+              const latLng = new window.google.maps.LatLng(marker.local_lat, marker.local_lng);
               const mark = new window.google.maps.Marker({
-                position: new window.google.maps.LatLng(marker.lat, marker.lng),
+                position: latLng,
                 map: MAP,
                 icon: iconPharmacy
               });
-              markersMap.push(mark);
+              mark.addListener('click', (e) => {
+                getInfoWindow(
+                  `${getTemplateInfo(marker)}`, 
+                  latLng).open(MAP);
+              });
         }
       }
     } 
@@ -87,22 +92,45 @@ const Map = ({ userLocation, markers, centerMap }) => {
 
   });
 
+
+  const getTemplateInfo = (data) => {
+    return `<ul class="d-flex flex-column m-0 p-0">
+      <li class="mb-2"><strong>${data.local_nombre}</strong></li>
+      <li class="mb-1">
+        <small>Dirección</small><br>
+        <strong>${data.local_direccion} ${data.comuna_nombre}</strong>
+      </li>
+      <li class="mb-1">
+        <small>Apertura</small><br>
+        <strong>${data.funcionamiento_hora_apertura}</strong>
+      </li>
+      <li class="mb-1">
+        <small>Cierre</small><br>
+        <strong>${data.funcionamiento_hora_cierre}</strong>
+      </li>
+      <li>
+        <small>Día de funcionamiento</small><br>
+        <strong>${data.funcionamiento_dia}</strong>
+      </li>
+    </ul>`;
+  }
+
+  const getInfoWindow = (content, position) => {
+    return new window.google.maps.InfoWindow({
+      content,
+      position,
+      pixelOffset: new window.google.maps.Size(-15, -55)
+    });
+  }
+
   const inMap = () => {
     if (window.google !== undefined) {
-      const  indexMark = markersMap.findIndex(mark => 
-        mark.getPosition().lat() === centerMap.lat && mark.getPosition().lng() === centerMap.lng
+      const index = list.findIndex(item => 
+        item.local_lat == centerMap.lat && item.local_lng == centerMap.lng
       );
-      markersMap[indexMark].setMap(null);
-      viewMarker?.setMap(null);
-      setViewMarker(null);
-      const marker = new window.google.maps.Marker({
-        map: MAP,
-        animation: window.google.maps.Animation.DROP,
-        position: centerMap,
-        icon: iconPharmacy
-      });
-      setViewMarker(marker);
-      // marker.addListener("click", e => { console.log(e); });
+      getInfoWindow(
+        `${getTemplateInfo(list[index])}`, 
+        new window.google.maps.LatLng(centerMap.lat, centerMap.lng)).open(MAP)
 
       if (userLocation !== undefined) {
         const directionService = new window.google.maps.DirectionsService();
