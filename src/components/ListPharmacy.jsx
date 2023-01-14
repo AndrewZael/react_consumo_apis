@@ -7,7 +7,7 @@ import PharmacySkeleton from "./PharmacySkeleton";
 import empty from "../assets/img/empty.png";
 import Notice from "./Notice";
 
-const ListPharmacy = ({ setMarkets, setCenterMap }) => {
+const ListPharmacy = ({ setMarkers, setCenterMap }) => {
   const [listPharmacy, setLisPharmacy] = useState([]);
   const [listPharmacyFiltered, setListPharmacyFiltered] =
     useState(listPharmacy);
@@ -27,7 +27,7 @@ const ListPharmacy = ({ setMarkets, setCenterMap }) => {
             name: item.local_nombre,
           })
         );
-        setMarkets(locations);
+        setMarkers(locations);
         setPreload(false);
       })
       .catch((err) => {
@@ -40,7 +40,7 @@ const ListPharmacy = ({ setMarkets, setCenterMap }) => {
         setNoticeInfo(noticeErrorApi);
         setPreload(false);
       });
-  }, [setMarkets]);
+  }, [setMarkers]);
 
   const getPharmacy = async () => {
     const url = "https://farmanet.minsal.cl/index.php/ws/getLocalesTurnos";

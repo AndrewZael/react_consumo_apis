@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
-import iconPharmacy from "../assets/img/pharmacy.png";
 import { useEffect } from "react";
 import InfoRoute from "./InfoRoute";
 import AlertToast from "./AlertToast";
 import addCurrentLocation from "google-maps-current-location";
 
+// Iconos
+import iconPharmacy from "../assets/img/pharmacy.png";
+import iconPerson from "../assets/img/user_location.png";
+
+const COLOR = "red";
+let markersMap = [];
 let MAP = null;
 let currentLocation = null;
-const COLOR = "red";
 let directionRender = null;
 
-const Map = ({ userLocation, markets, centerMap }) => {
+const Map = ({ userLocation, markers, centerMap }) => {
   const [infoRoute, setInfoRoute] = useState({});
   const [toastShow, setToastShow] = useState(false);
+  const [viewMarker, setViewMarker] = useState(null);
   useEffect(() => {
     inMap();
   }, [centerMap]);
@@ -37,28 +42,41 @@ const Map = ({ userLocation, markets, centerMap }) => {
   };
 
   loader.load().then(() => {
-    // Icono de usuario
-    const userMarket = {
-      path: "M12 2c-4.97 0-9 4.03-9 9 0 4.17 2.84 7.67 6.69 8.69L12 22l2.31-2.31C18.16 18.67 21 15.17 21 11c0-4.97-4.03-9-9-9zm0 2c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.3c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z",
-      fillColor: COLOR,
-      fillOpacity: 1,
-      strokeWeight: 0,
-      rotation: 0,
-      scale: 2,
-      anchor: new window.google.maps.Point(0, 20),
-    };
-
     // Mapa
     if (MAP === null) {
       MAP = new window.google.maps.Map(document.getElementById("map"));
       directionRender = new window.google.maps.DirectionsRenderer({
         polylineOptions: { strokeColor: COLOR },
+        suppressMarkers: true,
       });
-    } else if (userLocation !== undefined) {
+
+
+      // Markest Lista de farmacias
+      for (const marker of markers) {
+        if (marker.lat !== "" && marker.lng !== "") {
+              const mark = new window.google.maps.Marker({
+                position: new window.google.maps.LatLng(marker.lat, marker.lng),
+                map: MAP,
+                icon: iconPharmacy
+              });
+              markersMap.push(mark);
+        }
+      }
+    } 
+    
+    if (userLocation !== undefined) {
       if (JSON.stringify(centerMap) === "{}") {
         currentLocation === null && (currentLocation = addCurrentLocation(MAP));
         MAP.setCenter(options.center);
         MAP.setZoom(options.zoom);
+
+        // Market usuario
+        new window.google.maps.Marker({
+          position: userLocation,
+          map: MAP,
+          icon: iconPerson,
+        });
+
       }
     } else {
       if (JSON.stringify(centerMap) === "{}") {
@@ -67,27 +85,25 @@ const Map = ({ userLocation, markets, centerMap }) => {
       }
     }
 
-    // Market usuario
-    new window.google.maps.Marker({
-      position: userLocation,
-      map: MAP,
-      icon: userMarket,
-    });
-
-    // Markest Lista de farmacias
-    for (const market of markets) {
-      if (market.lat !== "" && market.lng !== "") {
-        new window.google.maps.Marker({
-          position: new window.google.maps.LatLng(market.lat, market.lng),
-          map: MAP,
-          icon: iconPharmacy,
-        });
-      }
-    }
   });
 
   const inMap = () => {
     if (window.google !== undefined) {
+      const  indexMark = markersMap.findIndex(mark => 
+        mark.getPosition().lat() === centerMap.lat && mark.getPosition().lng() === centerMap.lng
+      );
+      markersMap[indexMark].setMap(null);
+      viewMarker?.setMap(null);
+      setViewMarker(null);
+      const marker = new window.google.maps.Marker({
+        map: MAP,
+        animation: window.google.maps.Animation.DROP,
+        position: centerMap,
+        icon: iconPharmacy
+      });
+      setViewMarker(marker);
+      // marker.addListener("click", e => { console.log(e); });
+
       if (userLocation !== undefined) {
         const directionService = new window.google.maps.DirectionsService();
         let route = {
