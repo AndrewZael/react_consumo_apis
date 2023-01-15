@@ -36,7 +36,7 @@ const Filter = ({
   return (
     <>
       <header className="mb-3 p-3 border-bottom bg-light position-sticky top-0 z-2 d-flex">
-        <button onClick={() => setMenuOpen(false)} className="btn">
+        <button onClick={() => setMenuOpen(false)} className="btn d-md-none ps-0">
           <span className="material-icons align-middle">arrow_back</span>
         </button>
         <label className="input-group">

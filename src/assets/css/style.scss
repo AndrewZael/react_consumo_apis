@@ -49,3 +49,9 @@ nav {
 .wrap-pharmacy {
     cursor: pointer;
 }
+
+@media screen and (max-width:767px) {
+    #wrap-cards{
+        position: fixed;
+    }
+}
