@@ -24,6 +24,13 @@ nav {
     }
 }
 
+#wrap-cards{
+    left: -100%;
+    transition: left ease-in 350ms;
+    &.open{
+        left: 0;
+    }
+}
 #info-route {
     height: 220px;
     bottom: -220px;

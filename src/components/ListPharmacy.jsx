@@ -7,7 +7,7 @@ import PharmacySkeleton from "./PharmacySkeleton";
 import empty from "../assets/img/empty.png";
 import Notice from "./Notice";
 
-const ListPharmacy = ({ setList, setCenterMap }) => {
+const ListPharmacy = ({ setList, setCenterMap, setMenuOpen }) => {
   const [listPharmacy, setLisPharmacy] = useState([]);
   const [listPharmacyFiltered, setListPharmacyFiltered] =
     useState(listPharmacy);
@@ -51,6 +51,7 @@ const ListPharmacy = ({ setList, setCenterMap }) => {
         listPharmacyFiltered={listPharmacyFiltered}
         setListPharmacyFiltered={setListPharmacyFiltered}
         setNoticeInfo={setNoticeInfo}
+        setMenuOpen={setMenuOpen}
       />
 
       {JSON.stringify(noticeInfo) !== "{}" ? (
@@ -78,6 +79,7 @@ const ListPharmacy = ({ setList, setCenterMap }) => {
               funcionamiento_dia={item.funcionamiento_dia}
               local_lat={item.local_lat}
               local_lng={item.local_lng}
+              setMenuOpen={setMenuOpen}
             />
           ))}
         </nav>

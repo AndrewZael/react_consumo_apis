@@ -3,7 +3,6 @@ import { Loader } from "@googlemaps/js-api-loader";
 import { useEffect } from "react";
 import InfoRoute from "./InfoRoute";
 import AlertToast from "./AlertToast";
-import Pharmacy from "./Pharmacy";
 import addCurrentLocation from "google-maps-current-location";
 
 // Iconos
@@ -52,18 +51,17 @@ const Map = ({ userLocation, list, centerMap }) => {
 
 
       // Markest Lista de farmacias
-      for (const marker of list) {
-        if (marker.local_lat !== "" && marker.local_lng !== "") {
-              const latLng = new window.google.maps.LatLng(marker.local_lat, marker.local_lng);
+      for (const item of list) {
+        if (item.local_lat !== "" && item.local_lng !== "") {
+              const latLng = new window.google.maps.LatLng(item.local_lat, item.local_lng);
+              const map = MAP;
               const mark = new window.google.maps.Marker({
                 position: latLng,
                 map: MAP,
                 icon: iconPharmacy
               });
               mark.addListener('click', (e) => {
-                getInfoWindow(
-                  `${getTemplateInfo(marker)}`, 
-                  latLng).open(MAP);
+                getInfoWindow(`${getTemplateInfo(item)}`, latLng).open(map);
               });
         }
       }
@@ -115,7 +113,7 @@ const Map = ({ userLocation, list, centerMap }) => {
     </ul>`;
   }
 
-  const getInfoWindow = (content, position) => {
+  const getInfoWindow = (content = 0, position = {lat: 0, lng: 0}) => {
     return new window.google.maps.InfoWindow({
       content,
       position,
@@ -126,7 +124,8 @@ const Map = ({ userLocation, list, centerMap }) => {
   const inMap = () => {
     if (window.google !== undefined) {
       const index = list.findIndex(item => 
-        item.local_lat == centerMap.lat && item.local_lng == centerMap.lng
+        Number(item.local_lat) === Number(centerMap.lat) && 
+        Number(item.local_lng) === Number(centerMap.lng)
       );
       getInfoWindow(
         `${getTemplateInfo(list[index])}`, 

@@ -3,6 +3,7 @@ import React from "react";
 function Pharmacy(props) {
   const setCenter = (lat, lng) => {
     props.setCenterMap({ lat: parseFloat(lat), lng: parseFloat(lng) });
+    props.setMenuOpen(false);
   };
 
   const inputChecked = (element) => {

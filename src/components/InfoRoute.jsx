@@ -9,7 +9,7 @@ const InfoRoute = (props) => {
   return (
     <div
       id="info-route"
-      className={`p-3 rounded-top position-absolute bg-white shadow end-0 start-0 z-1 col-4 mx-auto ${
+      className={`px-3 pt-3 pb-5 rounded-top position-absolute bg-white shadow end-0 start-0 z-1 col-11 mx-auto ${
         active && "open"
       }`}
     >
