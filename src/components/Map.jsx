@@ -61,7 +61,15 @@ const Map = ({ userLocation, list, centerMap }) => {
                 icon: iconPharmacy
               });
               mark.addListener('click', (e) => {
-                getInfoWindow(`${getTemplateInfo(item)}`, latLng).open(map);
+
+                const windowInfo = new window.google.maps.InfoWindow({
+                  content: getTemplateInfo(item),
+                  position: latLng,
+                  pixelOffset: new window.google.maps.Size(-15, -55)
+                });
+
+                windowInfo.open(MAP);
+
               });
         }
       }
@@ -113,23 +121,20 @@ const Map = ({ userLocation, list, centerMap }) => {
     </ul>`;
   }
 
-  const getInfoWindow = (content = 0, position = {lat: 0, lng: 0}) => {
-    return new window.google.maps.InfoWindow({
-      content,
-      position,
-      pixelOffset: new window.google.maps.Size(-15, -55)
-    });
-  }
-
   const inMap = () => {
     if (window.google !== undefined) {
       const index = list.findIndex(item => 
         Number(item.local_lat) === Number(centerMap.lat) && 
         Number(item.local_lng) === Number(centerMap.lng)
       );
-      getInfoWindow(
-        `${getTemplateInfo(list[index])}`, 
-        new window.google.maps.LatLng(centerMap.lat, centerMap.lng)).open(MAP)
+
+      const windowInfo = new window.google.maps.InfoWindow({
+        content: getTemplateInfo(list[index]),
+        position: new window.google.maps.LatLng(centerMap.lat, centerMap.lng),
+        pixelOffset: new window.google.maps.Size(-15, -55)
+      });
+
+      windowInfo.open(MAP);
 
       if (userLocation !== undefined) {
         const directionService = new window.google.maps.DirectionsService();

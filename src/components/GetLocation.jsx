@@ -2,13 +2,14 @@ import { useEffect } from "react";
 
 const GetLocation = ({ setUserLocation }) => {
  
- const position = pos => {
-    setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-  }  
   const getLocation = () => {
     navigator.geolocation ?
-        navigator.geolocation.getCurrentPosition(position) :
-        console.log('Yu navegador no soporta geolocation');
+        navigator.geolocation.watchPosition((success) => {
+          setUserLocation({ lat: success.coords.latitude, lng: success.coords.longitude });
+        },(error) => {
+          
+        }) :
+        console.log('Tu navegador no soporta geolocation');
   }
 
   useEffect(() => {
