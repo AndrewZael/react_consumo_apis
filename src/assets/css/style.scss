@@ -15,7 +15,6 @@ $zIndex: 1, 2, 3, 5, 5;
         z-index: $i;
     }
 }
-
 nav {
     input:checked {
         &+label {
@@ -23,7 +22,6 @@ nav {
         }
     }
 }
-
 #wrap-cards{
     left: -100%;
     transition: left ease-in 350ms;
@@ -33,21 +31,38 @@ nav {
 }
 #info-route {
     height: 220px;
-    bottom: -220px;
+    bottom: -235px;
     transition: bottom 350ms ease-in 200ms;
 
     &.open {
         bottom: 0;
     }
+    button{
+        top: -15px;
+        right: -10px;
+    }
 }
-
 .no-caret{
     &::after{
         display: none;
     }
 }
 .wrap-pharmacy {
-    cursor: pointer;
+   cursor: pointer;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 50rem;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 50rem;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 @media screen and (max-width:767px) {

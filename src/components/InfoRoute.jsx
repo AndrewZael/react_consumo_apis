@@ -9,18 +9,18 @@ const InfoRoute = (props) => {
   return (
     <div
       id="info-route"
-      className={`px-3 pt-3 pb-5 rounded-top position-absolute bg-white shadow end-0 start-0 z-1 col-11 col-xl-6 mx-auto ${
+      className={`px-3 pt-3 rounded-top position-absolute bg-white shadow end-0 start-0 z-1 col-11 col-xl-6 mx-auto ${
         active && "open"
       }`}
     >
       <button
         onClick={() => setActive(false)}
-        className="btn btn-light rounded-circle p-1 position-absolute top-0 end-0 d-flex p-0 mt-2 me-2"
+        className="btn btn-light rounded-circle p-1 position-absolute d-flex p-0 rounded"
       >
         <span className="material-icons">close</span>
       </button>
-      <div className="overflow-auto h-100">
-        <h2 className="h3">
+      <div className="overflow-auto h-100 pb-5">
+        <h2 className="h3 mb-1">
           <span className="material-icons align-middle me-2">timer</span>
           <span className="align-middle">{props.duration.text}.</span>
         </h2>
@@ -28,7 +28,7 @@ const InfoRoute = (props) => {
           <span className="material-icons align-middle me-2">route</span>
           <span className="align-middle">{props.distance.text}.</span>
         </h3>
-        <div className="row mx-auto mt-4 small">
+        <div className="row mx-auto mt-3 small pb-3">
           <div className="col-6">
             <span>Desde</span>
             <p className="mb-0 fw-bold">{props.start_address}</p>

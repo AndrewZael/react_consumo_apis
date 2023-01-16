@@ -10,6 +10,7 @@ import iconPharmacy from "../assets/img/pharmacy.png";
 import iconPerson from "../assets/img/user_location.png";
 
 const COLOR = "red";
+let windowsInfo = [];
 let MAP = null;
 let currentLocation = null;
 let directionRender = null;
@@ -54,21 +55,23 @@ const Map = ({ userLocation, list, centerMap }) => {
       for (const item of list) {
         if (item.local_lat !== "" && item.local_lng !== "") {
               const latLng = new window.google.maps.LatLng(item.local_lat, item.local_lng);
-              const map = MAP;
               const mark = new window.google.maps.Marker({
                 position: latLng,
                 map: MAP,
                 icon: iconPharmacy
               });
               mark.addListener('click', (e) => {
-
                 const windowInfo = new window.google.maps.InfoWindow({
                   content: getTemplateInfo(item),
                   position: latLng,
                   pixelOffset: new window.google.maps.Size(-15, -55)
                 });
 
-                windowInfo.open(MAP);
+                window.google.maps.event.addListener(windowInfo,'closeclick', () =>{
+                  windowsInfo = [];
+                });
+
+                getWindowInfo(windowInfo);
 
               });
         }
@@ -98,6 +101,13 @@ const Map = ({ userLocation, list, centerMap }) => {
 
   });
 
+  const getWindowInfo = (winInfo) => {
+    windowsInfo.push(winInfo);
+    for (const window of windowsInfo) {
+          window.close();
+    }
+    winInfo.open(MAP);
+  }
 
   const getTemplateInfo = (data) => {
     return `<ul class="d-flex flex-column m-0 p-0">
@@ -108,11 +118,11 @@ const Map = ({ userLocation, list, centerMap }) => {
       </li>
       <li class="mb-1">
         <small>Apertura</small><br>
-        <strong>${data.funcionamiento_hora_apertura}</strong>
+        <strong>${data.funcionamiento_hora_apertura} hrs.</strong>
       </li>
       <li class="mb-1">
         <small>Cierre</small><br>
-        <strong>${data.funcionamiento_hora_cierre}</strong>
+        <strong>${data.funcionamiento_hora_cierre} hrs.</strong>
       </li>
       <li>
         <small>Día de funcionamiento</small><br>
@@ -134,7 +144,7 @@ const Map = ({ userLocation, list, centerMap }) => {
         pixelOffset: new window.google.maps.Size(-15, -55)
       });
 
-      windowInfo.open(MAP);
+      getWindowInfo(windowInfo);
 
       if (userLocation !== undefined) {
         const directionService = new window.google.maps.DirectionsService();
