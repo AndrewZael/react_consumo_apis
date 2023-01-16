@@ -10,7 +10,7 @@ const Filter = ({
   setMenuOpen
 }) => {
   const filter = (e) => {
-    const val = e.target.value;
+    const val = e.target.value.toLowerCase();
     const newList = listPharmacy.filter((item) => {
       return item
         ? search(item.comuna_nombre, val) || search(item.local_nombre, val)
@@ -26,12 +26,7 @@ const Filter = ({
       : setNoticeInfo({});
   };
 
-  const search = (item, value) =>
-    item
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .includes(value);
+  const search = (item, value) => item.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(value);
 
   return (
     <>
