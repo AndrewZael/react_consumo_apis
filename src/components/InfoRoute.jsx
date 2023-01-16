@@ -21,7 +21,7 @@ const InfoRoute = (props) => {
       </button>
       <div className="overflow-auto h-100 pb-5">
         <h2 className="h3 mb-1">
-          <span className="material-icons align-middle me-2">timer</span>
+          <span className="material-icons align-middle me-2">directions_car_filled</span>
           <span className="align-middle">{props.duration.text}.</span>
         </h2>
         <h3 className="h4">
