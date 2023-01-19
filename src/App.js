@@ -4,6 +4,7 @@ import Map from "./components/Map";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/style.scss';
 import ListPharmacy from "./components/ListPharmacy";
+import PreloadMap from "./components/PreloadMap";
 
 function App() {
 
@@ -37,7 +38,7 @@ function App() {
               userLocation={userLocation} 
               list={list}
               centerMap={centerMap}
-              /> : null
+              /> : <PreloadMap />
             }
         </section>
       </main>

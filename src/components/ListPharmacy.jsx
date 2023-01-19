@@ -31,7 +31,7 @@ const ListPharmacy = ({ setList, setCenterMap, setMenuOpen }) => {
           img: empty,
           title: "Lo sentimos",
           message:
-            "Un error ha ocurrido al traer la información, por favor inténtetelo nuevamente.",
+            "Un error ha ocurrido al traer la información, por favor inténtalo nuevamente.",
         };
         setNoticeInfo(noticeErrorApi);
         setPreload(false);

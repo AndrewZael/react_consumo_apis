@@ -39,7 +39,7 @@ const Filter = ({
             type="search"
             onChange={filter}
             className="form-control border-end-0"
-            placeholder="Ej: Cruz verde"
+            placeholder="Ej: Cruz verde / Buin"
             aria-label="Filtro de lista de farmacias"
             aria-describedby="icon-search"
           />
