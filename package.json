@@ -23,6 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://aguzman.cl/farmacias-de-turno",
   "eslintConfig": {
     "extends": [
       "react-app",
