@@ -18,7 +18,7 @@ function App() {
       <GetLocation setUserLocation={setUserLocation} />
 
       <main className="row mx-0 min-vh-100">
-        <header className="col-12 px-0 d-md-none bg-primary d-flex align-items-center py-1">
+        <header id="main-header" className="col-12 px-0 d-md-none bg-primary d-flex align-items-center py-1">
           <button onClick={() => setMenuOpen(true)} className="btn btn-primary">
             <span className="material-icons align-middle">manage_search</span>
           </button>
