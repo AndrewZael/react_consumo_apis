@@ -9,8 +9,7 @@ import Notice from "./Notice";
 
 const ListPharmacy = ({ setList, setCenterMap, setMenuOpen }) => {
   const [listPharmacy, setLisPharmacy] = useState([]);
-  const [listPharmacyFiltered, setListPharmacyFiltered] =
-    useState(listPharmacy);
+  const [listPharmacyFiltered, setListPharmacyFiltered] =useState(listPharmacy);
   const [preload, setPreload] = useState(true);
   const [noticeInfo, setNoticeInfo] = useState({});
 
@@ -36,7 +35,7 @@ const ListPharmacy = ({ setList, setCenterMap, setMenuOpen }) => {
         setNoticeInfo(noticeErrorApi);
         setPreload(false);
       });
-  }, [setList]);
+  }, []);
 
   const getPharmacy = async () => {
     const response = await fetch('https://farmanet.minsal.cl/index.php/ws/getLocalesTurnos');

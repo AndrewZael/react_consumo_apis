@@ -10,6 +10,7 @@ import iconPharmacy from "../assets/img/pharmacy.png";
 import iconPerson from "../assets/img/user_location.png";
 
 const COLOR = "red";
+let count = 0;
 let windowsInfo = [];
 let MAP = null;
 let currentLocation = null;
@@ -78,22 +79,23 @@ const Map = ({ userLocation, list, centerMap }) => {
       }
     } 
     
-    if (userLocation !== undefined) {
-      if (JSON.stringify(centerMap) === "{}") {
-        currentLocation === null && (currentLocation = addCurrentLocation(MAP));
-        MAP.setCenter(options.center);
-        MAP.setZoom(options.zoom);
 
-        // Market usuario
-        new window.google.maps.Marker({
-          position: userLocation,
-          map: MAP,
-          icon: iconPerson,
-        });
+    if (JSON.stringify(centerMap) === "{}") {
+      if (userLocation !== undefined) {
+          currentLocation === null && (currentLocation = addCurrentLocation(MAP));
+          MAP.setCenter(options.center);
+          MAP.setZoom(options.zoom);
 
-      }
-    } else {
-      if (JSON.stringify(centerMap) === "{}") {
+          if(count === 0){
+            new window.google.maps.Marker({
+              position: userLocation,
+              map: MAP,
+              icon: iconPerson,
+            });
+            count++;
+          }
+
+      }else{
         MAP.setCenter(optionsDefault.center);
         MAP.setZoom(optionsDefault.zoom);
       }

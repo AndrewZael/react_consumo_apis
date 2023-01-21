@@ -49,6 +49,9 @@ nav {
 }
 .wrap-pharmacy {
    cursor: pointer;
+   &:hover{
+    border-color: var(--bs-primary)!important;
+   }
 }
 ::-webkit-scrollbar {
     width: 6px;

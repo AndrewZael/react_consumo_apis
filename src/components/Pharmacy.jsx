@@ -2,8 +2,10 @@ import React from "react";
 
 function Pharmacy(props) {
   const setCenter = (lat, lng) => {
-    props.setCenterMap({ lat: parseFloat(lat), lng: parseFloat(lng) });
-    props.setMenuOpen(false);
+    if(lat !== '', lng != ''){
+      props.setCenterMap({ lat: parseFloat(lat), lng: parseFloat(lng) });
+      props.setMenuOpen(false);
+    }
   };
 
   const inputChecked = (element) => {
@@ -69,7 +71,7 @@ function Pharmacy(props) {
               </li>
             </ul>
           </div>
-          {validatePhone(props.local_telefono) ? (
+          {validatePhone(props.local_telefono) ? 
             <div className="col-3 d-flex align-items-center justify-content-center">
               <a
                 onClick={(e) => e.stopPropagation()}
@@ -80,9 +82,9 @@ function Pharmacy(props) {
                 <span className="material-icons md-36">call</span>
               </a>
             </div>
-          ) : null}
-          {props.local_lat !== "" || props.local_lng !== "" ? (
-            <div className="col-12 text-end border-top pt-3">
+           : null}
+          <div className="col-12 text-end border-top pt-3">
+          {props.local_lat !== "" || props.local_lng !== "" ? 
               <button
                 htmlFor={`radio-${props.local_id}`}
                 onClick={() => {
@@ -96,8 +98,11 @@ function Pharmacy(props) {
               >
                 Ver en el mapa &raquo;
               </button>
-            </div>
-          ) : null}
+           : <small className="d-block text-start">
+            <b className="text-danger">*</b>Lo sentimos, no contamos con la información de geolocalización de esta farmacia.
+            </small>
+           }
+          </div>
         </div>
       </label>
     </>
