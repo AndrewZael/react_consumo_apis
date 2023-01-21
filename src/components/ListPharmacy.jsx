@@ -38,7 +38,7 @@ const ListPharmacy = ({ setList, setCenterMap, setMenuOpen }) => {
   }, []);
 
   const getPharmacy = async () => {
-    const response = await fetch('https://farmanet.minsal.cl/index.php/ws/getLocalesTurnos');
+    const response = await fetch('https://aguzman.cl/farmacias-de-turno/farmacias-de-turno.json');
     return await response.json();
   };
 

@@ -1,3 +1,11 @@
+# Farmacias de Turno
+
+## Video
+[Ver video](https://drive.google.com/file/d/1HPI0AZVln3fbNa5o2GmwS1qQSz89GW5z/view?usp=sharing)
+
+## Demo
+[Ver demo](https://aguzman.cl/farmacias-de-turno/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
