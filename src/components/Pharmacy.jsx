@@ -2,7 +2,7 @@ import React from "react";
 
 function Pharmacy(props) {
   const setCenter = (lat, lng) => {
-    if(lat !== '', lng != ''){
+    if(lat !== '' && lng !== ''){
       props.setCenterMap({ lat: parseFloat(lat), lng: parseFloat(lng) });
       props.setMenuOpen(false);
     }

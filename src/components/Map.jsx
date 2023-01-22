@@ -198,12 +198,7 @@ const Map = ({ userLocation, list, centerMap }) => {
       />
       <article className="min-vh-100 position-relative">
         {JSON.stringify(infoRoute) !== "{}" ? (
-          <InfoRoute
-            distance={infoRoute.distance}
-            duration={infoRoute.duration}
-            start_address={infoRoute.start_address}
-            end_address={infoRoute.end_address}
-          />
+          <InfoRoute infoRoute={infoRoute} />
         ) : null}
         <div id="map" className="min-vh-100"></div>
       </article>

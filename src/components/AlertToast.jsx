@@ -12,7 +12,7 @@ const AlertToast = ({ toastShow, title, message }) => {
     <Toast
       bg="info"
       id="toast-info"
-      className="position-absolute z-2 start-0 end-0 mx-auto mb-3"
+      className="position-fixed z-2 start-0 end-0 mx-auto"
       show={show}
       onClose={toggleShow}
     >

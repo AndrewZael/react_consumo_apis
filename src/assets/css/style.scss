@@ -33,10 +33,9 @@ nav {
     }
 }
 #info-route {
-    height: 220px;
     bottom: -235px;
     transition: bottom 350ms ease-in 200ms;
-
+    position: absolute;
     &.open {
         bottom: 0;
     }
@@ -46,7 +45,7 @@ nav {
     }
 }
 #toast-info{
-    bottom: 10px;
+    bottom: 25px;
 }
 .no-caret{
     &::after{
@@ -79,11 +78,6 @@ nav {
         position: fixed;
     }
     #info-route {
-        &.open{
-            bottom: 60px;
-        }
-    }
-    #toast-info{
-        bottom: 60px;
+        position: fixed;
     }
 }
