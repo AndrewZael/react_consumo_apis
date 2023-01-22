@@ -19,7 +19,7 @@ const InfoRoute = (props) => {
       >
         <span className="material-icons">close</span>
       </button>
-      <div className="overflow-auto h-100 pb-5">
+      <div className="overflow-auto h-100">
         <h2 className="h3 mb-1">
           <span className="material-icons align-middle me-2">directions_car_filled</span>
           <span className="align-middle">{props.duration.text}.</span>

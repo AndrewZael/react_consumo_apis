@@ -9,7 +9,7 @@ import Notice from "./Notice";
 
 const ListPharmacy = ({ setList, setCenterMap, setMenuOpen }) => {
   const [listPharmacy, setLisPharmacy] = useState([]);
-  const [listPharmacyFiltered, setListPharmacyFiltered] =useState(listPharmacy);
+  const [listPharmacyFiltered, setListPharmacyFiltered] = useState(listPharmacy);
   const [preload, setPreload] = useState(true);
   const [noticeInfo, setNoticeInfo] = useState({});
 

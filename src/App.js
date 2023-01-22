@@ -24,7 +24,7 @@ function App() {
           </button>
           <h1 className="mb-0 fw-normal h4 text-white">Farmacias de Turno</h1>
         </header>
-        <section id="wrap-cards" className={`col-12 col-md-5 col-lg-4 col-xl-3 z-2 bg-white pb-2 px-0 overflow-auto vh-100 border-end ${menuOpen && 'open'}`} title="Lista de farmacias">
+        <section id="wrap-cards" className={`col-12 col-md-5 col-lg-4 col-xl-3 z-3 bg-white pb-2 px-0 overflow-auto vh-100 border-end ${menuOpen && 'open'}`} title="Lista de farmacias">
           <ListPharmacy setList={setList}
           setCenterMap={setCenterMap}
           setMenuOpen={setMenuOpen}

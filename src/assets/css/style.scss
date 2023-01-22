@@ -45,6 +45,9 @@ nav {
         right: -10px;
     }
 }
+#toast-info{
+    bottom: 10px;
+}
 .no-caret{
     &::after{
         display: none;
@@ -74,5 +77,13 @@ nav {
 @media screen and (max-width:767px) {
     #wrap-cards{
         position: fixed;
+    }
+    #info-route {
+        &.open{
+            bottom: 60px;
+        }
+    }
+    #toast-info{
+        bottom: 60px;
     }
 }

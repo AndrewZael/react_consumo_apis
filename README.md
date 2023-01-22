@@ -1,7 +1,7 @@
 # Farmacias de Turno
 
 ## Video
-[Ver video](https://drive.google.com/file/d/1HPI0AZVln3fbNa5o2GmwS1qQSz89GW5z/view?usp=sharing)
+[Ver video](https://drive.google.com/file/d/1Zazl8wQeyTYSDUlzOwXob2ZfjpKGbifJ/view?usp=sharing)
 
 ## Demo
 [Ver demo](https://aguzman.cl/farmacias-de-turno/)
