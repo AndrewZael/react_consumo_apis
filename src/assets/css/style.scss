@@ -53,6 +53,9 @@ nav {
         display: none;
     }
 }
+.h-map{
+    min-height: 100vh;
+}
 .wrap-pharmacy {
    cursor: pointer;
    &:hover{
@@ -79,5 +82,8 @@ nav {
     #toast-info,
     #wrap-cards {
         position: fixed;
+    }
+    .h-map{
+        min-height: calc(100vh - 60px);
     }
 }

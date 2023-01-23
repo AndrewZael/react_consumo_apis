@@ -196,11 +196,11 @@ const Map = ({ userLocation, list, centerMap }) => {
         message="No se encontró una ruta para llegar a esta ubicación."
         toastShow={toastShow}
       />
-      <article className="min-vh-100 position-relative">
+      <article className="h-map position-relative">
         {JSON.stringify(infoRoute) !== "{}" ? (
           <InfoRoute infoRoute={infoRoute} />
         ) : null}
-        <div id="map" className="min-vh-100"></div>
+        <div id="map" className="h-map"></div>
       </article>
     </>
   );
