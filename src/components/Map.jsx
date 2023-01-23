@@ -82,11 +82,11 @@ const Map = ({ userLocation, list, centerMap }) => {
 
     if (JSON.stringify(centerMap) === "{}") {
       if (userLocation !== undefined) {
-          currentLocation === null && (currentLocation = addCurrentLocation(MAP));
-          MAP.setCenter(options.center);
-          MAP.setZoom(options.zoom);
-
           if(count === 0){
+            currentLocation === null && (currentLocation = addCurrentLocation(MAP));
+            MAP.setCenter(options.center);
+            MAP.setZoom(options.zoom);
+
             new window.google.maps.Marker({
               position: userLocation,
               map: MAP,

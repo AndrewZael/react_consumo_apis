@@ -19,8 +19,8 @@ function App() {
 
       <main className="row mx-0 min-vh-100">
         <header id="main-header" className="col-12 px-0 d-md-none bg-primary d-flex align-items-center py-1">
-          <button onClick={() => setMenuOpen(true)} className="btn btn-primary">
-            <span className="material-icons align-middle">manage_search</span>
+          <button onClick={() => setMenuOpen(true) } className="btn btn-primary">
+            <span className="material-icons align-middle display-5">manage_search</span>
           </button>
           <h1 className="mb-0 fw-normal h4 text-white">Farmacias de Turno</h1>
         </header>

@@ -5,7 +5,6 @@ const InfoRoute = (props) => {
   const [active, setActive] = useState(true);
 
   useEffect(() => {
-    console.log(props);
     setActive(true);
   }, [props.infoRoute]);
 
