@@ -13,7 +13,7 @@ function Pharmacy(props) {
   };
 
   const validatePhone = (number) => {
-    return /^\+([0-9])*$/.test(number);
+    return /^\+([0-9]{10,11})*$/.test(number);
   };
 
   return (
